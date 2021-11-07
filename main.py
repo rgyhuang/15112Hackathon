@@ -5,7 +5,6 @@ from tkinter import*
 from pydub import AudioSegment
 from pydub.playback import play
 from webbrowser import*
-from axolotlClass import*
 
 # axolotl desktop pet!
 # adapted from https://medium.com/analytics-vidhya/create-your-own-desktop-pet-with-python-5b369be18868
@@ -178,6 +177,7 @@ class PetWindow(object):
 
 # sounds :D feel free to add more, just make sure file is a .wav and is in same folder
 sounds = ['wah.wav', 'AxolotlSqee.wav', 'mars.wav']
+
 
 # opens game and hides pet when user clicks pet        
 def openApp(event):
