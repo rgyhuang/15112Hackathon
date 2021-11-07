@@ -1,13 +1,16 @@
 from cmu_112_graphics import *
 from axolotlClass import*
+from myAxolotl import*
 
 mainmenu = "main_menu_bg.jpg"
 axo1 = 'axo1.png'
 title = "title.jpg"
 codeTrButton = "code_tracing_button.jpg"
 feedButton = "feed_button.jpg"
+renameButton = "rename_button.jpg"
 statb = "stats_button.jpg"
 path = os.path.dirname(os.path.abspath(__file__)) + '\\'
+
 
 def appStarted(app):
     # images:
@@ -15,6 +18,7 @@ def appStarted(app):
     app.feedButton = app.loadImage(feedButton)
     app.statButton = app.loadImage(statb)
     app.mainmenuBG = app.loadImage(mainmenu)
+    app.renameButton = app.loadImage(renameButton)
     app.title = app.loadImage(title)
     app.axo1Unscaled = app.loadImage(axo1)
     app.axo1 = app.scaleImage(app.axo1Unscaled,2/3)
@@ -22,7 +26,6 @@ def appStarted(app):
     app.ct = False
     app.feed = False
     app.stats = False
-    app.axolotl = Axolotl("Taylor")
 
 def drawBackground(app, canvas):
     # pink background
@@ -56,15 +59,21 @@ def drawFeed(app, canvas):
 def drawStats(app, canvas):
     # canvas.create_text(app.width//2, app.height//2,text="TESTING STATS",font="Arial 40")
     canvas.create_image(400, app.height//2,image=ImageTk.PhotoImage(app.axo1Unscaled))
-    canvas.create_text(650, 150, text=f"Name: {app.axolotl.name}",font=("MV Boli",35),anchor="w")
-    canvas.create_text(650, 210, text=f"Color: {app.axolotl.color}",font=("MV Boli",35),anchor="w")
-    canvas.create_text(650, 270, text=f"Happiness:                {app.axolotl.happiness}",
+    canvas.create_text(650, 150, text=f"Name: {axolotl.name}",font=("MV Boli",35),anchor="w")
+    canvas.create_text(650, 210, text=f"Color: {axolotl.color}",font=("MV Boli",35),anchor="w")
+    canvas.create_text(650, 270, text=f"Happiness:                {axolotl.happiness}",
                       font=("MV Boli",35),anchor="w")
-    canvas.create_text(650, 330, text=f"Hunger:                   {app.axolotl.hunger}",
+    canvas.create_text(650, 330, text=f"Hunger:                {axolotl.hunger}",
                       font=("MV Boli",35),anchor="w")
-    canvas.create_text(650, 390, text=f"Best Time: {app.axolotl.bestTime}",font=("MV Boli",35),anchor="w")
+    canvas.create_text(650, 390, text=f"Best Time: {axolotl.bestTime}",font=("MV Boli",35),anchor="w")
     backButton(app,canvas)
-
+    canvas.create_image(750,720,image=ImageTk.PhotoImage(app.renameButton))
+    # happiness bar:
+    canvas.create_rectangle(900,265,1200,285,fill="white")
+    canvas.create_rectangle(900,265,900 + 3*axolotl.happiness,285,fill="green")
+    #hunger bar:
+    canvas.create_rectangle(850,325,1150,345,fill="white")
+    canvas.create_rectangle(850,325,850 + 15*axolotl.hunger,345,fill="red")
 # Actions:
 def mousePressed(app, event):
     # On main menu:
@@ -83,6 +92,13 @@ def mousePressed(app, event):
         if(event.x >= 100 and event.x <= 300 and event.y >= 700 and event.y<=750):
             app.mainMenu = True
             app.ct = False
+    elif(app.stats):
+        if(event.x >= 100 and event.x <= 300 and event.y >= 700 and event.y<=750):
+            app.mainMenu = True
+            app.ct = False
+        elif(event.x >= 650 and event.x <= 850 and event.y >= 695 and event.y<=745):
+            name = app.getUserInput("Enter a name for your axolotl: ")
+            axolotl.changeName(name)
     # on Feed:
     elif(app.feed):
         if(event.x >= 100 and event.x <= 300 and event.y >= 700 and event.y<=750):
