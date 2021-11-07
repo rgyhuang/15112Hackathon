@@ -11,10 +11,10 @@ really cares about your academic success and mental wellbeing. It's here to:
 * **Open up an application when you double click it**
 
 ~~Taylor also needs to be taken care of too you know, soooooo you can also:~~
-~~1. Check out the happiness and hunger of your Axolotl~~
-~~2. Change its name and color (this feature is sus rn~~ 
-~~3. Feed your Axolotl (sus as well)~~
-~~4. Play with your Axoltol in the Code T-racing minigame!~~
+1. ~~Check out the happiness and hunger of your Axolotl~~
+2. ~~Change its name~~and color (this feature is sus rn)
+3. ~~Feed your Axolotl (sus as well)~~
+4. ~~Play with your Axoltol in the Code T-racing minigame!~~
 
 ## How we built it
 We built it using cmu 112 graphics tinker, tinker, and the python language
