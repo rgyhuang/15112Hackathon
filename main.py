@@ -31,7 +31,7 @@ class PetWindow(object):
         impath = os.path.dirname(os.path.abspath(__file__)) + '\\'
         #call axolotl action gif
         self.idle = [tk.PhotoImage(file=impath+'idleAxo_small.gif',format = 'gif -index %i' %(i)) for i in range(5)]#idle gif
-        self.idle_to_sleep = [tk.PhotoImage(file=impath+'idleAxo_small.gif',format = 'gif -index %i' %(i)) for i in range(8)] #idle to sleep gif
+        self.walk_down = [tk.PhotoImage(file=impath+'rollingAxo.gif',format = 'gif -index %i' %(i)) for i in range(8)] #idle to sleep gif
         self.sleep = [tk.PhotoImage(file=impath+'idleAxo_small.gif',format = 'gif -index %i' %(i)) for i in range(3)] #sleep gif
         self.sleep_to_idle = [tk.PhotoImage(file=impath+'idleAxo_small.gif',format = 'gif -index %i' %(i)) for i in range(8)] #sleep to idle gif
         self.walk_positive = [tk.PhotoImage(file=impath+'walking_positive_axo.gif',format = 'gif -index %i' %(i)) for i in range(8)] #walk to left gif
@@ -41,51 +41,51 @@ class PetWindow(object):
     def event(self):
         if self.event_number in self.idle_num:
             self.check = 0
-            print('idle')
+            #print('idle')
             window.after(400,self.update) #no. 1,2,3,4 = idle
         elif self.event_number == 5:
             self.check = 1
-            print('from idle to sleep')
+            #print('from idle to sleep')
             window.after(200,self.update) #no. 5 = idle to sleep
         elif self.event_number in self.walk_left:
             self.check = 4
-            print('walking towards left')
+            #print('walking towards left')
             window.after(200,self.update)#no. 6,7 = walk towards left
         elif self.event_number in self.walk_right:
             self.check = 5
-            print('walking towards right')
+            #print('walking towards right')
             window.after(200,self.update)#no 8,9 = walk towards right
         elif self.event_number in self.sleep_num:
             self.check  = 2
-            print('sleep')
+            #print('sleep')
             window.after(1000,self.update)#no. 14,15,16,17,19 = sleep
         elif self.event_number == 18:
             self.check = 3
-            print('from sleep to idle')
+            #print('from sleep to idle')
             window.after(200,self.update)#no. 18 = sleep to idle
         elif self.event_number in self.walk_down:
             self.check  = 6
-            print('walking down')
+            #print('walking down')
             window.after(200, self.update) #no. 10, 1 = walking down
         elif self.event_number in self.walk_up:
             self.check = 7
-            print('walking up')
+            #print('walking up')
             window.after(200, self.update) #no. 12, 13 = walking up
         elif self.event_number in self.walk_upLeft:
             self.check = 8
-            print('walking up and left')
+            #print('walking up and left')
             window.after(200, self.update) #no. 14, 15 = walking upLeft
         elif self.event_number in self.walk_upRight:
             self.check = 9
-            print('walking up and right')
+            #print('walking up and right')
             window.after(200, self.update) #no. 16, 17 = walking upRight
         elif self.event_number in self.walk_downRight:
             self.check = 10
-            print('walking down and right')
+            #print('walking down and right')
             window.after(200, self.update) #no. 18, 19 = walking downRight
         elif self.event_number in self.walk_downLeft:
             self.check = 11
-            print('walking down and left')
+            #print('walking down and left')
             window.after(200, self.update) #no. 20, 21 = walking downLeft
 
     # goes to next cycle of gif animation 
@@ -106,8 +106,8 @@ class PetWindow(object):
             self.cycle ,self.event_number = self.gif_work(self.cycle,self.idle,self.event_number,1,22)
         # idle to sleep
         elif self.check ==1:
-            frame = self.idle_to_sleep[self.cycle]
-            self.cycle ,self.event_number = self.gif_work(self.cycle, self.idle_to_sleep,self.event_number,23,23)
+            frame = self.idle[self.cycle]
+            self.cycle ,self.event_number = self.gif_work(self.cycle, self.idle,self.event_number,23,23)
         # sleep
         elif self.check == 2:
             frame = self.sleep[self.cycle]
@@ -132,8 +132,8 @@ class PetWindow(object):
                 self.x -= dx
         # walk down
         elif self.check == 6:
-            frame  = self.idle[self.cycle]
-            self.cycle , self.event_number = self.gif_work(self.cycle,self.idle,self.event_number,1,22)
+            frame  = self.walk_down[self.cycle]
+            self.cycle , self.event_number = self.gif_work(self.cycle,self.walk_down,self.event_number,1,22)
             if self.y+dy > 0 and self.y+dy < window.winfo_screenheight():
                 self.y += dy
         # walk up
@@ -158,15 +158,15 @@ class PetWindow(object):
                 self.x += dx
         # walk down and right
         elif self.check == 10:
-            frame = self.walk_positive[self.cycle]
-            self.cycle , self.event_number = self.gif_work(self.cycle,self.walk_positive,self.event_number,1, 22)
+            frame = self.walk_downb[self.cycle]
+            self.cycle , self.event_number = self.gif_work(self.cycle,self.walk_down,self.event_number,1, 22)
             if self.y+dy > 0 and self.y+dy < window.winfo_screenheight() and self.x+dx > 0 and self.x+dx < window.winfo_screenwidth():
                 self.y += dy
                 self.x += dx
         # walk down and left
         elif self.check == 11:
-            frame = self.walk_negative[self.cycle]
-            self.cycle , self.event_number = self.gif_work(self.cycle,self.walk_negative,self.event_number,1, 22)
+            frame = self.walk_down[self.cycle]
+            self.cycle , self.event_number = self.gif_work(self.cycle,self.walk_down,self.event_number,1, 22)
             if self.y+dy > 0 and self.y+dy < window.winfo_screenheight() and self.x+dx > 0 and self.x+dx < window.winfo_screenwidth():
                 self.y += dy
                 self.x -= dx
@@ -205,7 +205,7 @@ window.overrideredirect(True)
 window.wm_attributes('-transparentcolor','black')
 # stack top window
 window.attributes('-topmost', 1)
-
+window.overrideredirect(True)
 # make the axolotl desktop pet lmaooooo
 axo = PetWindow(1000, 500)
 
@@ -216,5 +216,5 @@ label.focus_set()
 label.pack()
 
 #loop the program
-window.after(250, axo.update)
+window.after(1000, axo.update)
 window.mainloop()
