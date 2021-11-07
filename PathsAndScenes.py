@@ -1,6 +1,5 @@
 import random
 class Scene(object):
-
     def __init__(self, numCol, numRow, size):
         self.numCol = numCol
         self.numRow = numRow
@@ -12,8 +11,8 @@ class Scene(object):
     def centerGrid(self, row, col):
         x = self.size * col + self.size / 2
         y = self.size * row + self.size / 2
-        return x, y
-    
+        return 4*x, 4*y
+
     def generatePath(self):
         startRow = 3
         startCol = 0
@@ -41,12 +40,13 @@ class Scene(object):
                 endRow = len(self.boardForScene)-2
             elif(endRow <= 0):
                 endRow = 1
-            elif(endCol >= len(self.boardForScene[0])):
+            elif(endCol >= len(self.boardForScene[0])-1):
                 end = True
                 endCol = len(self.boardForScene[0]) - 1
             # moving right
-            for x in range(startCol, endCol+1):
-                print((startRow,x))
+            for x in range(startCol, endCol):
+                print(x)
+                print(f"startRow: {(startRow,x)}")
                 if(x == (startCol+endCol)//2):
                     self.boardForScene[startRow][x] = "G"
                 else:
@@ -60,18 +60,20 @@ class Scene(object):
                         self.boardForScene[y][endCol] = "P"
                 # if going down
                 else:
-                    for y in range(startRow,endRow+1):
+                    for y in range(startRow,endRow):
                         self.boardForScene[y][endCol] = "P"
             # update start 
             startRow = endRow
             startCol = endCol
             i += 1
+
     def convertBoardToScene(self):
         for row in self.boardForScene:
             for col in self.boardForScene[0]:
                 cx, cy = self.centerGrid(row, col)
                 if self.boardForScene[row][col] == "G":
                     # input image of gate at cx and cy
+
                     pass
                 elif self.boardForScene[row][col] == "p":
                     # input image of path
@@ -107,6 +109,7 @@ def repr2dList(L):
 def print2dList(L):
     print(repr2dList(L))
 
-underWater = Scene(10, 10, 20)
-underWater.generatePath()
-print2dList(underWater.boardForScene)
+underwater = Scene(10, 10, 20)
+underwater.generatePath()
+
+print2dList(underwater.boardForScene)
