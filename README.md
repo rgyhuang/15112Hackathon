@@ -29,6 +29,8 @@ Because none of us had experience making a virtual pet and it was the first proj
 
 Cute Axolotl swimming around XD (plz make it new mascot)
 
+![Moreeee](https://i.imgur.com/Nas4ZQ3.gif)
+
 ## What we learned
 
 Coding do be hard
@@ -47,5 +49,4 @@ pipwin install pyaudio
 ```
 
 ## Start Your Journey and Meet Your Axolotl!
-
 Run 'main.py' to start application
