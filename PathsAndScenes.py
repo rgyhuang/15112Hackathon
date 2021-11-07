@@ -1,116 +1,5 @@
 import pyautogui
 import random
-import tkinter as tk
-# x = 1400
-# cycle = 0
-# check = 1
-# idle_num =[1,2,3,4]
-# sleep_num = [10,11,12,13,15]
-# walk_left = [6,7]
-# walk_right = [8,9]
-# event_number = random.randrange(1,3,1)
-# impath = 'C:\\Users\\yuchi\\Downloads\\'
-# #impath = 'C:\\Users\\fx770\\Desktop\\Project\\Buddy\\image\\'
-
-# def event(cycle,check,event_number,x):
-#     if event_number in idle_num:
-#         check = 0
-#         print('idle')
-#         window.after(400,update,cycle,check,event_number,x) #no. 1,2,3,4 = idle
-    
-#     elif event_number == 5:
-#         check = 1
-#         print('from idle to sleep')
-#         window.after(100,update,cycle,check,event_number,x) #no. 5 = idle to sleep
-
-#     elif event_number in walk_left:
-#         check = 4
-#         print('walking towards left')
-#         window.after(100,update,cycle,check,event_number,x) #no. 6,7 = walk towards left
-#     elif event_number in walk_right:
-#         check = 5
-#         print('walking towards right')
-#         window.after(100,update,cycle,check,event_number,x) #no 8,9 = walk towards right
-#     elif event_number in sleep_num:
-#         check  = 2
-#         print('sleep')
-#         window.after(1000,update,cycle,check,event_number,x) #no. 10,11,12,13,15 = sleep
-#     elif event_number == 14:
-#         check = 3
-#         print('from sleep to idle')
-#         window.after(100,update,cycle,check,event_number,x) #no. 15 = sleep to idle
-        
-# #making gif work 
-# def gif_work(cycle,frames,event_number,first_num,last_num):
-#     if cycle < len(frames) -1:
-#         cycle+=1
-#     else:
-#         cycle = 0
-#         event_number = random.randrange(first_num,last_num+1,1)
-#     return cycle,event_number
-    
-# def update(cycle,check,event_number,x):
-#     #idle
-#     if check ==0:
-#         frame = idle[cycle]
-#         cycle ,event_number = gif_work(cycle,idle,event_number,1,9)
-#     #idle to sleep
-#     elif check ==1:
-#         frame = idle_to_sleep[cycle]
-#         cycle ,event_number = gif_work(cycle,idle_to_sleep,event_number,10,10)
-#     #sleep
-#     elif check == 2:
-#         frame = sleep[cycle]
-#         cycle ,event_number = gif_work(cycle,sleep,event_number,10,15)
-#     #sleep to idle
-#     elif check ==3:
-#         frame = sleep_to_idle[cycle]
-#         cycle ,event_number = gif_work(cycle,sleep_to_idle,event_number,1,1)
-#     #walk toward left
-#     elif check == 4:
-#         frame = walk_positive[cycle]
-#         cycle , event_number = gif_work(cycle,walk_positive,event_number,1,9)
-#         x -= 3
-#     #walk towards right
-#     elif check == 5:
-#         frame = walk_negative[cycle]
-#         cycle , event_number = gif_work(cycle,walk_negative,event_number,1,9)
-#         x -= -3
-#     window.geometry('100x100+'+str(x)+'+1050')
-#     label.configure(image=frame)
-#     window.after(1,event,cycle,check,event_number,x)
-    
-# window = tk.Tk()
-
-# #call buddy's action gif
-# idle = [tk.PhotoImage(file=impath+'idle.gif',format = 'gif -index %i' %(i)) for i in range(5)]
-# #idle gif
-# idle_to_sleep = [tk.PhotoImage(file=impath+'idle_to_sleep.gif',format = 'gif -index %i' %(i)) for i in range(8)] 
-# #idle to sleep gif
-# sleep = [tk.PhotoImage(file=impath+'sleep.gif',format = 'gif -index %i' %(i)) for i in range(3)]
-# #sleep gif
-# sleep_to_idle = [tk.PhotoImage(file=impath+'sleep_to_idle.gif',format = 'gif -index %i' %(i)) for i in range(8)] 
-# #sleep to idle gif
-# walk_positive = [tk.PhotoImage(file=impath+'walking_positive.gif',format = 'gif -index %i' %(i)) for i in range(8)] 
-# #walk to left gif
-# walk_negative = [tk.PhotoImage(file=impath+'walking_negative.gif',format = 'gif -index %i' %(i)) for i in range(8)] 
-# #walk to right gif
-
-# #window configuration
-# window.config(highlightbackground='black')
-# label = tk.Label(window,bd=0,bg='black')
-# window.overrideredirect(True)
-# window.wm_attributes('-transparentcolor','black')
-# label.pack()
-# #loop the program
-# window.after(1,update,cycle,check,event_number,x)
-
-# window.mainloop()
-
-
-# class of path
-# generates a random path of of length 5 and 
-
 class Scene(object):
 
     def __init__(self, numCol, numRow, size):
@@ -128,31 +17,39 @@ class Scene(object):
     
     def generatePath(self):
         x = 0
-        y = 2
+        # a hard coded number so that the maze start around the middle
+        y = 3
         i = 0
         direction = 0
+        # loops until the x of the path reaches the end
         while x < len(self.boardForScene[0]) - 1:
+            # stores x and y before it is changed
             initY = y
             initX = x
-            if y <= 0:
+            # if y is too high or low, go in the opposite direction
+            if y <= 1:
                 randomYDirection = random.randint(2,4) * 1
                 direction = 1
-            elif y >= len(self.boardForScene) - 1:
+            elif y >= len(self.boardForScene) - 2:
                 randomYDirection = random.randint(2,4) * -1
                 direction = -1
             else:
+                # else make sure that y goes in an opposite direction 
+                # compared to the previous path
                 if i % 2 == 0:
                     randomYDirection = random.randint(2,4)
                     direction = 1
                 else:
                     randomYDirection = random.randint(2,4) * -1
                     direction = -1
-            print(randomYDirection)
-            randomXDirection = random.randint(2,5)
+            # print(randomYDirection)
+            # generates the x direction change
+            randomXDirection = random.randint(3,4)
+            # add the changes to the x and y
             y += randomYDirection
             x += randomXDirection
-            # constrains x and y so that they are not out of bounds
 
+            # constrains x and y so that they are not out of bounds
             if x >= len(self.boardForScene[0]) - 1:
                 x = len(self.boardForScene[0]) - 1
                 initY = y
@@ -163,21 +60,40 @@ class Scene(object):
 
             print(x , y)
 
-            for xPos in range(initX, x + 1):
+            # loop from x initial to x to draw the horizontal paths
+            for xPos in range(initX, x):
                 if xPos == (x + initX) // 2:
                     self.boardForScene[y][xPos] = "G"
                 else:
                     self.boardForScene[y][xPos] = "p"
             
+            # loops from initialY to y 
             if direction == -1:
-                for yPos in range(initY, y, direction):
+                for yPos in range(initY, y - 1, direction):
+                    print(yPos)
                     self.boardForScene[yPos][x] = "p"
-                    print2dList(self.boardForScene)
+                    #print2dList(self.boardForScene)
             else:
-                for yPos in range(initY, y):
+                for yPos in range(initY, y + 1):
+                    print(yPos)
                     self.boardForScene[yPos][x] = "p"
-                    print2dList(self.boardForScene)
+                    #print2dList(self.boardForScene)
             i += 1
+
+    def convertBoardToScene(self):
+        for row in self.boardForScene:
+            for col in self.boardForScene[0]:
+                cx, cy = self.centerGrid(row, col)
+                if self.boardForScene[row][col] == "G":
+                    # input image of gate at cx and cy
+                    pass
+                elif self.boardForScene[row][col] == "p":
+                    # input image of path
+                    pass
+                elif self.boardForScene[row][col] == "w":
+                    #input image of water
+                    pass
+        # add corals or sprinkle bubbles around the scene as well
 
 def repr2dList(L):
     if (L == []): return '[]'
@@ -205,6 +121,7 @@ def repr2dList(L):
 def print2dList(L):
     print(repr2dList(L))
 
-underWater = Scene(20, 10, 20)
+underWater = Scene(10, 10, 20)
 underWater.generatePath()
 print2dList(underWater.boardForScene)
+
