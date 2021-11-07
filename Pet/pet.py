@@ -1,9 +1,9 @@
 import pyautogui
 import random
 import tkinter as tk
-
-class Pet(object):
-    
+from axolotlApp import *
+# adapted from https://medium.com/analytics-vidhya/create-your-own-desktop-pet-with-python-5b369be18868
+class PetWindow(object):
     def __init__(self, x, y):
         self.x = x
         self.y = y
@@ -13,6 +13,13 @@ class Pet(object):
         self.sleep_num = [10,11,12,13,15]
         self.walk_left = [6,7]
         self.walk_right = [8,9]
+        # to be implemented
+        self.walk_down = [16, 17]
+        self.walk_up = [18, 19]
+        # self.walk_upLeft = []
+        # self.walk_upRight = []
+        # self.walk_downRight = []
+        # self.walk_downLeft = []
         self.event_number = random.randrange(1,3,1)
         # change to match gif directory
         impath = 'C:\\Users\\Roy Huang\\Documents\\CS\\CMU-Coding\\15112Hackathon\\Hack112\\'
@@ -25,6 +32,7 @@ class Pet(object):
         self.walk_negative = [tk.PhotoImage(file=impath+'walking_negative.gif',format = 'gif -index %i' %(i)) for i in range(8)]#walk to right gif
     #transfer random no. to event
     def event(self):
+        lengthOfWalk = random.randrange(1, 100)
         if self.event_number in self.idle_num:
             self.check = 0
             print('idle')
@@ -49,9 +57,17 @@ class Pet(object):
             self.check = 3
             print('from sleep to idle')
             window.after(100,self.update)#no. 15 = sleep to idle
+        # elif self.event_number in self.walk_down:
+        #     self.check  = 6
+        #     print('walking down')
+        #     window.after(100, self.update)
+        # elif self.event_number in self.walk_up:
+        #     self.check = 7
+        #     print('walking up')
+        #     window.after(100, self.update)
 
-    #making gif work 
-    def gif_work(self, cycle, frames, event_number, first_num,last_num):
+    # goes to next cycle of gif animation 
+    def gif_work(self, cycle, frames, event_number, first_num, last_num):
         if cycle < len(frames) -1:
             cycle += 1
         else:
@@ -59,15 +75,16 @@ class Pet(object):
             event_number = random.randrange(first_num,last_num+1,1)
         return cycle,event_number
 
+# update position of the window/pet
     def update(self):
         #idle
-        if self.check ==0:
+        if self.check == 0:
             frame = self.idle[self.cycle]
-            self.cycle ,self.event_number = self.gif_work(self.cycle,self.idle,self.event_number,1,9)
+            self.cycle ,self.event_number = self.gif_work(self.cycle,self.idle,self.event_number,1,19)
         #idle to sleep
         elif self.check ==1:
             frame = self.idle_to_sleep[self.cycle]
-            self.cycle ,self.event_number = self.gif_work(self.cycle,self.idle_to_sleep,self.event_number,10,10)
+            self.cycle ,self.event_number = self.gif_work(self.cycle, self.idle_to_sleep,self.event_number,10,10)
         #sleep
         elif self.check == 2:
             frame = self.sleep[self.cycle]
@@ -79,32 +96,50 @@ class Pet(object):
         #walk toward left
         elif self.check == 4:
             frame = self.walk_positive[self.cycle]
-            self.cycle , self.event_number = self.gif_work(self.cycle,self.walk_positive,self.event_number,1,9)
+            self.cycle , self.event_number = self.gif_work(self.cycle,self.walk_positive,self.event_number,1,19)
             self.x -= 3
         #walk towards right
         elif self.check == 5:
             frame = self.walk_negative[self.cycle]
-            self.cycle , self.event_number = self.gif_work(self.cycle,self.walk_negative,self.event_number,1,9)
+            self.cycle , self.event_number = self.gif_work(self.cycle,self.walk_negative,self.event_number,1,19)
             self.x += 3
+        # #walk down
+        # elif self.check == 6:
+        #     frame  = self.walk_negative[self.cycle]
+        #     self.cycle , self.event_number = self.gif_work(self.cycle,self.walk_negative,self.event_number,1,19)
+        #     self.y += 3
+
+        # elif self.check == 7:
+        #     frame = self.walk_positive[self.cycle]
+        #     self.cycle , self.event_number = self.gif_work(self.cycle,self.walk_positive,self.event_number,1,19)
+        #     self.y -= 3
+    
         window.geometry('100x100+'+str(self.x)+'+'+str(self.y))
         label.configure(image=frame)
         window.after(1,self.event)
-        
-def hello(event):
-    print("yes")
-    
-window = tk.Tk()
 
-#window configuration
+# opens game and hides pet when user clicks pet        
+def openApp(event):
+    window.withdraw()
+    runApp(width=1400, height=800)
+    window.deiconify()
+    window.attributes('-topmost', 1)
+
+window = tk.Tk()
+# window configuration
 window.config(highlightbackground='black')
 label = tk.Label(window,bd=0,bg='black')
+# hides window from taskbar, make black background transparent
 window.overrideredirect(True)
 window.wm_attributes('-transparentcolor','black')
+# stack top window
 window.attributes('-topmost', 1)
-label.bind("<Button-1>", hello)
+# bind window click to function
+label.bind("<Button-1>", openApp)
 label.pack()
 
-axo = Pet(1000, 500)
+axo = PetWindow(1000, 500)
+
 #loop the program
 window.after(1, axo.update)
 window.mainloop()
