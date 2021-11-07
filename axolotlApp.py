@@ -1,42 +1,45 @@
 from cmu_112_graphics import *
 from axolotlClass import*
 
+mainmenu = "main_menu_bg.jpg"
+axo1 = 'axo1.png'
+title = "title.jpg"
+codeTrButton = "code_tracing_button.jpg"
+feedButton = "feed_button.jpg"
+statb = "stats_button.jpg"
+path = os.path.dirname(os.path.abspath(__file__)) + '\\'
+
 def appStarted(app):
     # images:
-    mainmenu = 'https://cdn.discordapp.com/attachments/906604588247965747/906716392034811964/Untitled_Artwork_23.jpg'
-    axo1 = 'https://media.discordapp.net/attachments/906604588247965747/906703597465649172/axoaxo-removebg-preview.png'
-    myaxo = "https://cdn.discordapp.com/attachments/906604588247965747/906713338732486696/Untitled_Artwork_20.png"
+    app.codeTrButton = app.loadImage(codeTrButton)
+    app.feedButton = app.loadImage(feedButton)
+    app.statButton = app.loadImage(statb)
     app.mainmenuBG = app.loadImage(mainmenu)
-    app.myaxo = app.loadImage(myaxo)
+    app.title = app.loadImage(title)
     app.axo1Unscaled = app.loadImage(axo1)
     app.axo1 = app.scaleImage(app.axo1Unscaled,2/3)
     app.mainMenu = True
     app.ct = False
     app.feed = False
     app.stats = False
+    app.axolotl = Axolotl("Taylor")
 
 def drawBackground(app, canvas):
     # pink background
     canvas.create_image(app.width//2, app.height//2, image=ImageTk.PhotoImage(app.mainmenuBG))
 
 def drawMainScreen(app, canvas):
-    canvas.create_image(app.width//2,100,image=ImageTk.PhotoImage(app.myaxo))
+    canvas.create_image(app.width//2,100,image=ImageTk.PhotoImage(app.title))
     # Axolotl 1:
     canvas.create_image(app.width//2, app.height//2, image=ImageTk.PhotoImage(app.axo1))
     # Code T-Racing: start = (200,500) ; end = (650,750)
-    canvas.create_rectangle(175,650,500, 750,
-                            fill="white",outline="black",width=2)
-    canvas.create_text(app.width//8+150, 700,text="Play Code T-Racing",font="Gabriola 30 bold")
+    canvas.create_image(350,700,image=ImageTk.PhotoImage(app.codeTrButton))
 
     # Feed: start = (600,650) ; end = (900,750)
-    canvas.create_rectangle(600,650,900, 750,
-                            fill="white",outline="black",width=2)
-    canvas.create_text(app.width//8+550, 700,text="Feed",font="Gabriola 30 bold")
+    canvas.create_image(750,700,image=ImageTk.PhotoImage(app.feedButton))
 
     # Check Stats: (1000)
-    canvas.create_rectangle(1000,650,1300, 750,
-                            fill="white",outline="black",width=2)
-    canvas.create_text(app.width//8+950, 700,text="Check Stats",font="Gabriola 30 bold")
+    canvas.create_image(1150,700,image=ImageTk.PhotoImage(app.statButton))
 
 def backButton(app, canvas):
     canvas.create_rectangle(100,700,300, 750,
@@ -51,7 +54,15 @@ def drawFeed(app, canvas):
     canvas.create_text(app.width//2, app.height//2,text="TESTING FEED",font="Arial 40")
     backButton(app,canvas)
 def drawStats(app, canvas):
-    canvas.create_text(app.width//2, app.height//2,text="TESTING STATS",font="Arial 40")
+    # canvas.create_text(app.width//2, app.height//2,text="TESTING STATS",font="Arial 40")
+    canvas.create_image(400, app.height//2,image=ImageTk.PhotoImage(app.axo1Unscaled))
+    canvas.create_text(650, 150, text=f"Name: {app.axolotl.name}",font=("MV Boli",35),anchor="w")
+    canvas.create_text(650, 210, text=f"Color: {app.axolotl.color}",font=("MV Boli",35),anchor="w")
+    canvas.create_text(650, 270, text=f"Happiness:                {app.axolotl.happiness}",
+                      font=("MV Boli",35),anchor="w")
+    canvas.create_text(650, 330, text=f"Hunger:                   {app.axolotl.hunger}",
+                      font=("MV Boli",35),anchor="w")
+    canvas.create_text(650, 390, text=f"Best Time: {app.axolotl.bestTime}",font=("MV Boli",35),anchor="w")
     backButton(app,canvas)
 
 # Actions:
