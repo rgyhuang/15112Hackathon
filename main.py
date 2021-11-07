@@ -5,10 +5,11 @@ from tkinter import*
 from pydub import AudioSegment
 from pydub.playback import play
 from webbrowser import*
-
+from axolotlClass import*
 
 # axolotl desktop pet!
 # adapted from https://medium.com/analytics-vidhya/create-your-own-desktop-pet-with-python-5b369be18868
+# draw da pet on desktop, press to open another app (15112 companion)
 class PetWindow(object):
     def __init__(self, x, y):
         self.x = x
@@ -26,7 +27,6 @@ class PetWindow(object):
         self.walk_downRight = [18,20]
         self.walk_downLeft = [21,22]
         self.sleep_num = [23,24,25,26,28]
-
         self.event_number = random.randrange(1,3,1)
         # change to match gif directory
         impath = os.path.dirname(os.path.abspath(__file__)) + '\\'
@@ -176,7 +176,7 @@ class PetWindow(object):
         label.configure(image=frame)
         window.after(1,self.event)
 
-# sounds :D
+# sounds :D feel free to add more, just make sure file is a .wav and is in same folder
 sounds = ['wah.wav', 'AxolotlSqee.wav', 'mars.wav']
 
 # opens game and hides pet when user clicks pet        
@@ -206,7 +206,7 @@ window.wm_attributes('-transparentcolor','black')
 # stack top window
 window.attributes('-topmost', 1)
 
-# make the axolotl lmaooooo
+# make the axolotl desktop pet lmaooooo
 axo = PetWindow(1000, 500)
 
 # bind window click to function
