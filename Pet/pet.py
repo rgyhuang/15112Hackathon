@@ -22,7 +22,7 @@ class PetWindow(object):
         # self.walk_downLeft = []
         self.event_number = random.randrange(1,3,1)
         # change to match gif directory
-        impath = 'C:\\Users\\Roy Huang\\Documents\\CS\\CMU-Coding\\15112Hackathon\\Hack112\\'
+        impath = os.path.dirname(os.path.abspath(__file__)) + '\\'
         #call buddy's action gif
         self.idle = [tk.PhotoImage(file=impath+'idle.gif',format = 'gif -index %i' %(i)) for i in range(5)]#idle gif
         self.idle_to_sleep = [tk.PhotoImage(file=impath+'idle_to_sleep.gif',format = 'gif -index %i' %(i)) for i in range(8)]#idle to sleep gif
@@ -68,7 +68,7 @@ class PetWindow(object):
 
     # goes to next cycle of gif animation 
     def gif_work(self, cycle, frames, event_number, first_num, last_num):
-        if cycle < len(frames) -1:
+        if cycle < len(frames) - 1:
             cycle += 1
         else:
             cycle = 0
@@ -80,7 +80,7 @@ class PetWindow(object):
         #idle
         if self.check == 0:
             frame = self.idle[self.cycle]
-            self.cycle ,self.event_number = self.gif_work(self.cycle,self.idle,self.event_number,1,19)
+            self.cycle ,self.event_number = self.gif_work(self.cycle,self.idle,self.event_number,1,9)
         #idle to sleep
         elif self.check ==1:
             frame = self.idle_to_sleep[self.cycle]
@@ -96,12 +96,12 @@ class PetWindow(object):
         #walk toward left
         elif self.check == 4:
             frame = self.walk_positive[self.cycle]
-            self.cycle , self.event_number = self.gif_work(self.cycle,self.walk_positive,self.event_number,1,19)
+            self.cycle , self.event_number = self.gif_work(self.cycle,self.walk_positive,self.event_number,1,9)
             self.x -= 3
         #walk towards right
         elif self.check == 5:
             frame = self.walk_negative[self.cycle]
-            self.cycle , self.event_number = self.gif_work(self.cycle,self.walk_negative,self.event_number,1,19)
+            self.cycle , self.event_number = self.gif_work(self.cycle,self.walk_negative,self.event_number,1,9)
             self.x += 3
         # #walk down
         # elif self.check == 6:
