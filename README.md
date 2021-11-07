@@ -7,7 +7,7 @@ We built it using cmu 112 graphics tinker, tinker, and used the python language.
 
 Challenges we run into
 
-Becuase none of us had experience making a virtual pet and it was the first project for many of us, we didn't know whether it is going to work in the end. 
+Becuase none of us had experience making a virtual pet and it was the first project for many of us, we didn't know whether it is going to work in the end. We also had many bugs when we are generating the path, for the axoloto to walk through.
 
 What we are proud of
 
@@ -15,6 +15,6 @@ We are proud of the cuteness of the axolotol and the fact that it can swim aorun
 
 What we learned
 
-We learned how the 
+We learned how to use python to make a virtual pet.
 
 
