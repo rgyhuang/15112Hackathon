@@ -1,9 +1,13 @@
 from cmu_112_graphics import *
+from axolotlClass import*
 
 def appStarted(app):
-    pink = 'https://pm-site-assets-py4.s3.us-east-2.amazonaws.com/products/legacy/pastel_pink_solid_sq.jpg'
+    # images:
+    mainmenu = 'https://cdn.discordapp.com/attachments/906604588247965747/906716392034811964/Untitled_Artwork_23.jpg'
     axo1 = 'https://media.discordapp.net/attachments/906604588247965747/906703597465649172/axoaxo-removebg-preview.png'
-    app.mainmenuBG = app.loadImage(pink)
+    myaxo = "https://cdn.discordapp.com/attachments/906604588247965747/906713338732486696/Untitled_Artwork_20.png"
+    app.mainmenuBG = app.loadImage(mainmenu)
+    app.myaxo = app.loadImage(myaxo)
     app.axo1Unscaled = app.loadImage(axo1)
     app.axo1 = app.scaleImage(app.axo1Unscaled,2/3)
     app.mainMenu = True
@@ -13,10 +17,10 @@ def appStarted(app):
 
 def drawBackground(app, canvas):
     # pink background
-    canvas.create_image(700, 300, image=ImageTk.PhotoImage(app.mainmenuBG))
+    canvas.create_image(app.width//2, app.height//2, image=ImageTk.PhotoImage(app.mainmenuBG))
 
 def drawMainScreen(app, canvas):
-    canvas.create_text(app.width//2,100,text="My Axolotl!",font="Gabriola 60",anchor="center")
+    canvas.create_image(app.width//2,100,image=ImageTk.PhotoImage(app.myaxo))
     # Axolotl 1:
     canvas.create_image(app.width//2, app.height//2, image=ImageTk.PhotoImage(app.axo1))
     # Code T-Racing: start = (200,500) ; end = (650,750)
@@ -49,6 +53,7 @@ def drawFeed(app, canvas):
 def drawStats(app, canvas):
     canvas.create_text(app.width//2, app.height//2,text="TESTING STATS",font="Arial 40")
     backButton(app,canvas)
+
 # Actions:
 def mousePressed(app, event):
     # On main menu:
