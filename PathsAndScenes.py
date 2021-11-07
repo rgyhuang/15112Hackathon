@@ -1,4 +1,3 @@
-import pyautogui
 import random
 class Scene(object):
 
@@ -16,70 +15,57 @@ class Scene(object):
         return x, y
     
     def generatePath(self):
-        x = 0
-        # a hard coded number so that the maze start around the middle
-        y = 3
+        startRow = 3
+        startCol = 0
+        direction = 0  
+        dRow = 0
+        dCol = 0
         i = 0
-        direction = 0
-        # loops until the x of the path reaches the end
-        while x < len(self.boardForScene[0]) - 1:
-            # stores x and y before it is changed
-            initY = y
-            initX = x
-            # if y is too high or low, go in the opposite direction
-            if y <= 1:
-                randomYDirection = random.randint(2,4) * 1
+        end = False
+        while startCol < len(self.boardForScene[0])-1:
+            dRow = random.randint(2,4)
+            dCol = random.randint(3,4)
+
+            #moving up
+            if i%2 == 0:
                 direction = 1
-            elif y >= len(self.boardForScene) - 2:
-                randomYDirection = random.randint(2,4) * -1
+            # moving down:
+            else:
                 direction = -1
-            else:
-                # else make sure that y goes in an opposite direction 
-                # compared to the previous path
-                if i % 2 == 0:
-                    randomYDirection = random.randint(2,4)
-                    direction = 1
+
+            # change row and col
+            endRow = startRow + dRow*direction
+            endCol = startCol + dCol
+            #constrains:
+            if(endRow >= len(self.boardForScene)-2):
+                endRow = len(self.boardForScene)-2
+            elif(endRow <= 0):
+                endRow = 1
+            elif(endCol >= len(self.boardForScene[0])):
+                end = True
+                endCol = len(self.boardForScene[0]) - 1
+            # moving right
+            for x in range(startCol, endCol+1):
+                print((startRow,x))
+                if(x == (startCol+endCol)//2):
+                    self.boardForScene[startRow][x] = "G"
                 else:
-                    randomYDirection = random.randint(2,4) * -1
-                    direction = -1
-            # print(randomYDirection)
-            # generates the x direction change
-            randomXDirection = random.randint(3,4)
-            # add the changes to the x and y
-            y += randomYDirection
-            x += randomXDirection
-
-            # constrains x and y so that they are not out of bounds
-            if x >= len(self.boardForScene[0]) - 1:
-                x = len(self.boardForScene[0]) - 1
-                initY = y
-            if y <= 0:
-                y = 1
-            if y >= len(self.boardForScene) - 2:
-                y = len(self.boardForScene) - 2
-
-            print(x , y)
-
-            # loop from x initial to x to draw the horizontal paths
-            for xPos in range(initX, x):
-                if xPos == (x + initX) // 2:
-                    self.boardForScene[y][xPos] = "G"
+                    self.boardForScene[startRow][x] = "P"
+            # check if reached the end
+            if(end == False):
+                # if going up:
+                if endRow < startRow:
+                    for y in range(startRow, endRow,-1):
+                        print((y,endCol))
+                        self.boardForScene[y][endCol] = "P"
+                # if going down
                 else:
-                    self.boardForScene[y][xPos] = "p"
-            
-            # loops from initialY to y 
-            if direction == -1:
-                for yPos in range(initY, y - 1, direction):
-                    print(yPos)
-                    self.boardForScene[yPos][x] = "p"
-                    #print2dList(self.boardForScene)
-            else:
-                for yPos in range(initY, y + 1):
-                    print(yPos)
-                    self.boardForScene[yPos][x] = "p"
-                    #print2dList(self.boardForScene)
+                    for y in range(startRow,endRow+1):
+                        self.boardForScene[y][endCol] = "P"
+            # update start 
+            startRow = endRow
+            startCol = endCol
             i += 1
-
     def convertBoardToScene(self):
         for row in self.boardForScene:
             for col in self.boardForScene[0]:
@@ -124,4 +110,3 @@ def print2dList(L):
 underWater = Scene(10, 10, 20)
 underWater.generatePath()
 print2dList(underWater.boardForScene)
-
