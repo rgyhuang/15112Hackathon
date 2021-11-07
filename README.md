@@ -1,7 +1,7 @@
 # THE ULTIMATE HACK112 PROJECT
 # PROJECT 42: AXOLOTL 15112 COMPANION!
 
-![lol](https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.deviantart.com%2Fhavenrelis%2Fart%2FChibi-Axolotl-531032183&psig=AOvVaw0haR8BlM-VXjjPGr0j2hWk&ust=1636398909208000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCICkpJH7hvQCFQAAAAAdAAAAABAD)
+![Kawaiii](https://imgur.com/Jlwpm0Z)
 
 ## What is Project 42?
 A desktop app designed to help students succeed in 15112. Your companion, Taylor the Axolotl,
