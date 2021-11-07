@@ -1,3 +1,4 @@
+
 class Axolotl(object):
     def __init__(self):
         self.color = "pink"
@@ -6,12 +7,13 @@ class Axolotl(object):
         self.bestTime = None
         # self.age
     
-    def eatWorm(self):
-        return 42
+    def eatWorm(self, worm):
+        self.color =  worm
+        if self.happiness > 95:
+            self.happiness = 100
+        else:
+            self.happiness += 5
+        if self.hunger < 20:
+            self.hunger += 1
     
-    def changeColor(self):
-        return 42
-
-
-
-
+    
