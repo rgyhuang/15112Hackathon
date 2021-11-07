@@ -8,7 +8,6 @@ axo1 = 'axo1.png'
 title = "title.jpg"
 codeTrButton = "code_tracing_button.jpg"
 feedButton = "feed_button.jpg"
-renameButton = "rename_button.jpg"
 statb = "stats_button.jpg"
 gate = "gate.png"
 proceed = "path.png"
@@ -31,9 +30,14 @@ def appStarted(app):
     app.feedButton = app.loadImage(feedButton)
     app.statButton = app.loadImage(statb)
     app.mainmenuBG = app.loadImage(mainmenu)
-    app.renameButton = app.loadImage(renameButton)
     app.title = app.loadImage(title)
     app.axo1Unscaled = app.loadImage(axo1)
+
+    app.ct1 = app.loadImage("ct1.jpg")
+    app.ct2 = app.loadImage("ct2.jpg")
+    app.ct3 = app.loadImage("ct3.jpg")
+    app.ct4 = app.loadImage("ct4.jpg")
+    app.cts = [app.ct1,app.ct2,app.ct3,app.ct4]
     app.axo1 = app.scaleImage(app.axo1Unscaled,2/3)
     app.mainMenu = True
     app.ct = False
@@ -43,7 +47,7 @@ def appStarted(app):
     app.eatWorm = False
     app.mouseX = 0
     app.mouseY = 0
-
+    app.meme = app.loadImage("axolotlmeme.gif")
     #worm States
     app.red = False
     app.yellow = False
@@ -99,9 +103,6 @@ def mousePressed(app, event):
         if(event.x >= 100 and event.x <= 300 and event.y >= 700 and event.y<=750):
             app.mainMenu = True
             app.ct = False
-        elif(event.x >= 650 and event.x <= 850 and event.y >= 695 and event.y<=745):
-            name = app.getUserInput("Enter a name for your axolotl: ")
-            axolotl.changeName(name)
     # on Feed:
     elif(app.feed):
         if(event.x >= 100 and event.x <= 300 and event.y >= 700 and event.y<=750):
@@ -120,9 +121,6 @@ def mousePressed(app, event):
                 app.purple = True
             elif(event.y >= 590 and event.y <=610):
                 app.white = True
-
-
-        
     # on Stats:
     elif(app.stats):
         if(event.x >= 100 and event.x <= 300 and event.y >= 700 and event.y<=750):
@@ -131,9 +129,7 @@ def mousePressed(app, event):
 
 def mouseReleased(app, event):
     if(app.feed):
-        print("hi")
         if(event.x >= 450 and event.x <= 500 and event.y >= app.height//4 and event.y <= app.height//4 + 20):
-            print("Eat")
             app.eatWorm = False
             app.red = False
             app.yellow = False
@@ -158,7 +154,14 @@ def drawCT(app,canvas):
     backButton(app,canvas)
 
 def drawCTProblems(app, canvas):
-    canvas.create_rectangle(900,100,1400,700,fill="white")
+    index = random.randint(0,3)
+    image = app.cts[index]
+    canvas.create_image(1100,400,image=ImageTk.PhotoImage(image))
+    canvas.create_text(1100,100,text="Indicate what the following code prints:",font="Arial 14")
+    memeIndex = random.randint(700,720)
+    memeIndey = random.randint(600,610)
+    canvas.create_image(memeIndex,memeIndey,image=ImageTk.PhotoImage(app.meme))
+    canvas.create_text(100,40,text="CODE TRACE FASTER OR ELSE",font="Arial 60",anchor="w")
 def drawFeed(app, canvas):
     canvas.create_image(400, app.height//2,image=ImageTk.PhotoImage(app.axo1Unscaled))
     canvas.create_image(1200,100,image=ImageTk.PhotoImage(app.redWorm))
@@ -171,7 +174,6 @@ def drawFeed(app, canvas):
         #red
         if(app.red):
             canvas.create_image(app.mouseX, app.mouseY, image=ImageTk.PhotoImage(app.redWorm))
-        
     backButton(app,canvas)
 def drawStats(app, canvas):
     # canvas.create_text(app.width//2, app.height//2,text="TESTING STATS",font="Arial 40")
@@ -184,7 +186,6 @@ def drawStats(app, canvas):
                       font=("MV Boli",35),anchor="w")
     canvas.create_text(650, 390, text=f"Best Time: {axolotl.bestTime}",font=("MV Boli",35),anchor="w")
     backButton(app,canvas)
-    canvas.create_image(750,720,image=ImageTk.PhotoImage(app.renameButton))
     # happiness bar:
     canvas.create_rectangle(900,265,1200,285,fill="white")
     canvas.create_rectangle(900,265,900 + 3*axolotl.happiness,285,fill="green")
