@@ -1,6 +1,5 @@
 from cmu_112_graphics import *
 from axolotlClass import*
-from myAxolotl import*
 from PathsAndScenes import*
 
 mainmenu = "main_menu_bg.jpg"
@@ -13,9 +12,10 @@ gate = "gate.png"
 proceed = "path.png"
 path = os.path.dirname(os.path.abspath(__file__)) + '\\'
 
-
+axolotl = Axolotl()
 def appStarted(app):
     # images:
+    
     app.redWorm = app.loadImage("redworm.jpg")
     app.yellowWorm = app.loadImage("yellowWorm.jpg")
     app.greenWorm = app.loadImage("greenWorm.jpg")
