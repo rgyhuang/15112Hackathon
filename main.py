@@ -158,7 +158,7 @@ class PetWindow(object):
                 self.x += dx
         # walk down and right
         elif self.check == 10:
-            frame = self.walk_downb[self.cycle]
+            frame = self.walk_down[self.cycle]
             self.cycle , self.event_number = self.gif_work(self.cycle,self.walk_down,self.event_number,1, 22)
             if self.y+dy > 0 and self.y+dy < window.winfo_screenheight() and self.x+dx > 0 and self.x+dx < window.winfo_screenwidth():
                 self.y += dy
