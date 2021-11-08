@@ -28,7 +28,7 @@ class PetWindow(object):
         self.sleep_num = [23,24,25,26,28]
         self.event_number = random.randrange(1,3,1)
         # change to match gif directory
-        impath = os.path.dirname(os.path.abspath(__file__)) + '\\'
+        impath = os.path.dirname(os.path.abspath(__file__)) + '\\Assets\\Visuals\\'
         #call axolotl action gif
         self.idle = [tk.PhotoImage(file=impath+'idleAxo_small.gif',format = 'gif -index %i' %(i)) for i in range(5)]#idle gif
         self.walk_down = [tk.PhotoImage(file=impath+'rollingAxo.gif',format = 'gif -index %i' %(i)) for i in range(8)] #idle to sleep gif
@@ -182,9 +182,9 @@ sounds = ['wah.wav', 'AxolotlSqee.wav', 'mars.wav']
 # opens game and hides pet when user clicks pet        
 def openApp(event):
     window.withdraw()
-    sound = AudioSegment.from_file(random.choice(sounds), format='wav')
+    sound = AudioSegment.from_file('Assets//Audio//'+random.choice(sounds), format='wav')
     play(sound)
-    os.system('axolotlApp.py')
+    os.system('PetFunctions\\axolotlApp.py')
     window.deiconify()
     window.attributes('-topmost', 1)
 
