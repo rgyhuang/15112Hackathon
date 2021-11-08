@@ -16,17 +16,44 @@ class PetWindow(object):
         self.cycle = 0
         self.check = 1
         # movement event nums
-        self.idle_num =[1,2,3,4]
-        self.walk_left = [6,7]
-        self.walk_right = [8,9]
-        self.walk_down = [10, 11]
-        self.walk_up = [12, 13]
-        self.walk_upLeft = [14,15]
-        self.walk_upRight = [16,17]
-        self.walk_downRight = [18,20]
-        self.walk_downLeft = [21,22]
-        self.sleep_num = [23,24,25,26,28]
+        self.idle_num ={1,2,3,4}
+        self.walk_left = {6,7}
+        self.walk_right = {8,9}
+        self.walk_down = {10, 11}
+        self.walk_up = {12, 13}
+        self.walk_upLeft = {14,15}
+        self.walk_upRight = {16,17}
+        self.walk_downRight = {18,20}
+        self.walk_downLeft = {21,22}
+        self.sleep_num = {23,24,25}
         self.event_number = random.randrange(1,3,1)
+        self.numToEvent = dict()
+        for i in range(1, 26):
+            if i < 5:
+                self.numToEvent[i] = 0
+            elif i == 5:
+                self.numToEvent[i] = 1
+            elif i < 8:
+                self.numToEvent[i] = 4
+            elif i < 10:
+                self.numToEvent[i] = 5
+            elif i < 12:
+                self.numToEvent[i] = 6
+            elif i < 14:
+                self.numToEvent[i] = 7
+            elif i < 16:
+                self.numToEvent[i] = 8
+            elif i < 18:
+                self.numToEvent[i] = 9
+            elif i == 18:
+                self.numToEvent[i] = 3
+            elif i < 20:
+                self.numToEvent[i] = 10
+            elif i < 22:
+                self.numToEvent[i] = 11
+            else:
+                self.numToEvent[i] = 2
+
         # change to match gif directory
         impath = os.path.dirname(os.path.abspath(__file__)) + '\\Assets\\Visuals\\'
         #call axolotl action gif
@@ -39,54 +66,9 @@ class PetWindow(object):
     
     #transfer random no. to event
     def event(self):
-        if self.event_number in self.idle_num:
-            self.check = 0
-            #print('idle')
-            window.after(400,self.update) #no. 1,2,3,4 = idle
-        elif self.event_number == 5:
-            self.check = 1
-            #print('from idle to sleep')
-            window.after(200,self.update) #no. 5 = idle to sleep
-        elif self.event_number in self.walk_left:
-            self.check = 4
-            #print('walking towards left')
-            window.after(200,self.update)#no. 6,7 = walk towards left
-        elif self.event_number in self.walk_right:
-            self.check = 5
-            #print('walking towards right')
-            window.after(200,self.update)#no 8,9 = walk towards right
-        elif self.event_number in self.sleep_num:
-            self.check  = 2
-            #print('sleep')
-            window.after(1000,self.update)#no. 14,15,16,17,19 = sleep
-        elif self.event_number == 18:
-            self.check = 3
-            #print('from sleep to idle')
-            window.after(200,self.update)#no. 18 = sleep to idle
-        elif self.event_number in self.walk_down:
-            self.check  = 6
-            #print('walking down')
-            window.after(200, self.update) #no. 10, 1 = walking down
-        elif self.event_number in self.walk_up:
-            self.check = 7
-            #print('walking up')
-            window.after(200, self.update) #no. 12, 13 = walking up
-        elif self.event_number in self.walk_upLeft:
-            self.check = 8
-            #print('walking up and left')
-            window.after(200, self.update) #no. 14, 15 = walking upLeft
-        elif self.event_number in self.walk_upRight:
-            self.check = 9
-            #print('walking up and right')
-            window.after(200, self.update) #no. 16, 17 = walking upRight
-        elif self.event_number in self.walk_downRight:
-            self.check = 10
-            #print('walking down and right')
-            window.after(200, self.update) #no. 18, 19 = walking downRight
-        elif self.event_number in self.walk_downLeft:
-            self.check = 11
-            #print('walking down and left')
-            window.after(200, self.update) #no. 20, 21 = walking downLeft
+            self.check = self.numToEvent[self.event_number]
+            print(self.check)
+            window.after(200, self.update)
 
     # goes to next cycle of gif animation 
     def gif_work(self, cycle, frames, event_number, first_num, last_num):
@@ -105,17 +87,17 @@ class PetWindow(object):
             frame = self.idle[self.cycle]
             self.cycle ,self.event_number = self.gif_work(self.cycle,self.idle,self.event_number,1,22)
         # idle to sleep
-        elif self.check ==1:
+        elif self.check == 1:
             frame = self.idle[self.cycle]
             self.cycle ,self.event_number = self.gif_work(self.cycle, self.idle,self.event_number,23,23)
         # sleep
         elif self.check == 2:
             frame = self.sleep[self.cycle]
-            self.cycle ,self.event_number = self.gif_work(self.cycle,self.sleep, self.event_number,23, 28)
-        # sleep to idle
-        elif self.check ==3:
+            self.cycle ,self.event_number = self.gif_work(self.cycle,self.sleep, self.event_number, 1, 1)
+        # sleep to idle (doesn't work rn)
+        elif self.check == 3:
             frame = self.sleep_to_idle[self.cycle]
-            self.cycle ,self.event_number = self.gif_work(self.cycle,self.sleep_to_idle,self.event_number,1,1)
+            self.cycle ,self.event_number = self.gif_work(self.cycle,self.sleep_to_idle,self.event_number,1, 22)
         # if moving
         dy, dx = random.randrange(1,20), random.randrange(1,20)
         # walk toward right
@@ -178,7 +160,6 @@ class PetWindow(object):
 # sounds :D feel free to add more, just make sure file is a .wav and is in same folder
 sounds = ['wah.wav', 'AxolotlSqee.wav', 'mars.wav']
 
-
 # opens game and hides pet when user clicks pet        
 def openApp(event):
     window.withdraw()
@@ -205,7 +186,6 @@ window.overrideredirect(True)
 window.wm_attributes('-transparentcolor','black')
 # stack top window
 window.attributes('-topmost', 1)
-window.overrideredirect(True)
 # make the axolotl desktop pet lmaooooo
 axo = PetWindow(1000, 500)
 
@@ -216,5 +196,5 @@ label.focus_set()
 label.pack()
 
 #loop the program
-window.after(1000, axo.update)
+window.after(1, axo.update)
 window.mainloop()
