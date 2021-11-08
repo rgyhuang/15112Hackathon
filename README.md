@@ -38,9 +38,13 @@ Coding do be hard
 ## Modules
 
 pydub
-```pip install pydub```
+```
+pip install pydub
+```
 or install latest github dev version
-```pip install git+https://github.com/jiaaro/pydub.git@master```
+```
+pip install git+https://github.com/jiaaro/pydub.git@master
+```
 
 pyaudio
 ```
@@ -50,3 +54,5 @@ pipwin install pyaudio
 
 ## Start Your Journey and Meet Your Axolotl!
 Run 'main.py' to start application
+
+**Note: scuffed if you run on Mac**
