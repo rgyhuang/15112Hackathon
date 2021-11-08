@@ -67,7 +67,6 @@ class PetWindow(object):
     #transfer random no. to event
     def event(self):
             self.check = self.numToEvent[self.event_number]
-            print(self.check)
             window.after(200, self.update)
 
     # goes to next cycle of gif animation 
