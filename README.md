@@ -1,5 +1,6 @@
 # THE ULTIMATE HACK112 PROJECT
 # PROJECT 42: AXOLOTL 15112 COMPANION!
+# Update: Won [runner-up](https://cdn-uploads.piazza.com/paste/jj39vyg7RoIu/bdf6ca4a836c7d419f454aa07472f8b44ada82649793ea3c6b4d5ee2952e18cc/Hack112_F21_Closing_Ceremony.pdf) award for best UI!
 
 ![Kawaiii](https://i.imgur.com/Jlwpm0Z.jpg)
 
