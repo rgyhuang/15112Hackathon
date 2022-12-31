@@ -11,6 +11,8 @@ really cares about your academic success and mental wellbeing. It's here to:
 * **Swim around your desktop** 
 * **Open up an application when you double click it**
 
+[Demo here!](https://youtu.be/PJtD5I-uJDo)
+
 ~~Taylor also needs to be taken care of too you know, soooooo you can also:~~
 1. ~~Check out the happiness and hunger of your Axolotl~~
 2. ~~Change its name~~and color (this feature is sus rn)
